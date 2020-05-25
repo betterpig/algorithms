@@ -146,6 +146,7 @@
     <ClCompile Include="insertion_sort.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="merge_sort.cpp" />
+    <ClCompile Include="quick_sort.cpp" />
     <ClCompile Include="select_sort.cpp" />
   </ItemGroup>
   <ItemGroup>
