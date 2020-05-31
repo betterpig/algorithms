@@ -142,12 +142,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="base_function.cpp" />
     <ClCompile Include="bubble_sort.cpp" />
+    <ClCompile Include="bucket_sort.cpp" />
+    <ClCompile Include="counting_sort.cpp" />
+    <ClCompile Include="heap_sort.cpp" />
     <ClCompile Include="insertion_sort.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="merge_sort.cpp" />
     <ClCompile Include="quick_sort.cpp" />
+    <ClCompile Include="radix_sort.cpp" />
     <ClCompile Include="select_sort.cpp" />
+    <ClCompile Include="shell_sort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sort_function.h" />
