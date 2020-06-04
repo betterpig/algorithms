@@ -1,14 +1,5 @@
 #pragma once
-#include<iostream>
-
-template<class T>
-struct node
-{
-	T key;
-	node<T>* pre;
-	node<T>* next;
-	node(T k, node<T>* pre_=nullptr, node<T>* next_=nullptr) :key(k), pre(pre_), next(next_) {}
-};
+#include"common.h"
 
 template<class T>
 class Doubly_linked_list

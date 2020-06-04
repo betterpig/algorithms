@@ -1,12 +1,10 @@
 #include<iostream>
-
-constexpr auto CAPACITY = 5;
+#include"common.h"
 
 template<class T>
 class Stack
 {
 public:
-	  
 	Stack()
 	{
 		size = CAPACITY;
@@ -27,6 +25,7 @@ public:
 	void push(T x);
 	T pop();
 	void print_data();
+	T get_top() { return s[top]; }
 
 private:
 	int size;

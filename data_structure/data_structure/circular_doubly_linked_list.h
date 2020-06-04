@@ -1,6 +1,5 @@
 #pragma once
-#include<iostream>
-#include"doubly_linked_list.h"
+#include"common.h"
 
 template<class T>
 class Circular_doubly_linked_list

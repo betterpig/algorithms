@@ -120,7 +120,10 @@
     <ClCompile Include="stack.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="binary_search_tree.h" />
     <ClInclude Include="circular_doubly_linked_list.h" />
+    <ClInclude Include="common.h" />
+    <ClInclude Include="hash_table.h" />
     <ClInclude Include="queue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
