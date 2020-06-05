@@ -1,6 +1,9 @@
 #pragma once
 
+#include<vector>
 #include"common.h"
+
+using namespace std;
 
 template<class T>
 struct tree_node
@@ -27,6 +30,8 @@ public:
 	void inorder2_print(tree_node<T>* p);
 	void preorder2_print(tree_node<T>* p);
 	void postorder2_print(tree_node<T>* p);
+	void levelorder2_print(tree_node<T>* p);
+	void levelorder_print(tree_node<T>* p);
 
 	void delete_data(tree_node<T>* p);
 	tree_node<T>* search(T k);
@@ -133,6 +138,50 @@ void BST<T>::postorder2_print(tree_node<T>* p)
 			p = temp->right;	
 	}
 	printf("\n");
+}
+
+template<class T>
+void BST<T>::levelorder2_print(tree_node<T>* p)
+{
+	Queue< tree_node<T>*> q;
+	q.enqueue(p);
+	while (!q.empty())
+	{
+		tree_node<T>* temp = q.dequeue();
+		printf("%d  ", temp->key);
+		if (temp->left)
+			q.enqueue(temp->left);
+		if (temp->right)
+			q.enqueue(temp->right);
+	}
+}
+
+template<class T>
+void BST<T>::levelorder_print(tree_node<T>* p)
+{
+	
+	vector<vector<T>> results;
+	vector<T> result;
+	Queue<tree_node<T>*> q;
+	q.enqueue(p);
+	q.enqueue(nullptr);
+	while (!q.empty())
+	{
+		tree_node<T>* temp = q.dequeue();
+		if (temp == nullptr )
+		{
+			if(!q.empty())
+				q.enqueue(nullptr);
+			results.push_back(result);
+			result.clear();
+			continue;
+		}
+		result.push_back(temp->key);
+		if (temp->left)
+			q.enqueue(temp->left);
+		if (temp->right)
+			q.enqueue(temp->right);
+	}
 }
 
 template<class T>

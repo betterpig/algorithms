@@ -48,7 +48,7 @@ T Queue<T>::dequeue()
 	if (empty())
 		throw "queue underflow!";
 	T temp = q[head];
-	head = head + 1;
+	head = (head + 1)%size;
 	return temp;
 }
 
