@@ -20,15 +20,15 @@ class BST
 {
 public:
 	BST() { root = nullptr; }
-	~BST()
-	{
 
-	}
+	int depth(tree_node<T>* p);
+
 	void inorder_print(tree_node<T>* p);
 	void preorder_print(tree_node<T>* p);
 	void postorder_print(tree_node<T>* p);
 	void inorder2_print(tree_node<T>* p);
 	void preorder2_print(tree_node<T>* p);
+	void preorder3_print(tree_node<T>* p);
 	void postorder2_print(tree_node<T>* p);
 	void levelorder2_print(tree_node<T>* p);
 	void levelorder_print(tree_node<T>* p);
@@ -46,6 +46,19 @@ public:
 private:
 	tree_node<T>* root;
 };
+
+template<class T>
+int BST<T>::depth(tree_node<T>* p)
+{
+	if (!root)
+		return 0;
+	int left_depth = count_depth(root->left);
+	int right_depth = count_depth(root->right);
+	if (left_depth > right_depth)
+		return left_depth + 1;
+	else
+		return right_depth + 1;
+}
 
 template<class T>
 void BST<T>::inorder_print(tree_node<T>* p)
@@ -116,6 +129,26 @@ void BST<T>::preorder2_print(tree_node<T>* p)
 }
 
 template<class T>
+void BST<T>::preorder3_print(tree_node<T>* p)
+{
+	Stack<tree_node<T>*> s(10);
+
+	while (p || !s.empty())
+	{
+		while (p)
+		{
+			printf("%d  ", p->key);
+			s.push(p);
+			p = p->left;
+		}
+		tree_node<T>* temp = s.pop();
+
+		p = temp->right;
+	}
+	printf("\n");
+}
+
+template<class T>
 void BST<T>::postorder2_print(tree_node<T>* p)
 {
 	Stack<tree_node<T>*> stack(10);
@@ -159,29 +192,28 @@ void BST<T>::levelorder2_print(tree_node<T>* p)
 template<class T>
 void BST<T>::levelorder_print(tree_node<T>* p)
 {
-	
-	vector<vector<T>> results;
-	vector<T> result;
-	Queue<tree_node<T>*> q;
-	q.enqueue(p);
-	q.enqueue(nullptr);
-	while (!q.empty())
+	int n = depth(root);
+	for (int i = 1; i <= n; i++)
 	{
-		tree_node<T>* temp = q.dequeue();
-		if (temp == nullptr )
-		{
-			if(!q.empty())
-				q.enqueue(nullptr);
-			results.push_back(result);
-			result.clear();
-			continue;
-		}
-		result.push_back(temp->key);
-		if (temp->left)
-			q.enqueue(temp->left);
-		if (temp->right)
-			q.enqueue(temp->right);
+		level_order(root, i);
 	}
+	return root;
+}
+
+template<class T>
+void levelorder(tree_node<T>* p, int n)
+{
+	if (!p)
+		return;
+	if (n == 1)
+	{
+		printf("%d", p->key);
+		return;
+	}
+
+	level_order(p->left, n - 1);
+	level_order(p->right, n - 1);
+	return;
 }
 
 template<class T>

@@ -19,7 +19,7 @@ int main()
 
 	data.inorder2_print(data.get_root());
 	printf("\n");
-	data.preorder2_print(data.get_root());
+	data.preorder3_print(data.get_root());
 	printf("\n");
 	data.levelorder_print(data.get_root());
 }
