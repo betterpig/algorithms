@@ -1,6 +1,8 @@
 #pragma once
 #include<iostream>
-#include"common.h"
+#include<vector>
+#include<queue>
+using namespace std;
 
 constexpr auto CAPACITY = 5;
 

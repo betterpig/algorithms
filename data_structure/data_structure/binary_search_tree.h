@@ -1,9 +1,6 @@
 #pragma once
-
-#include<vector>
 #include"common.h"
 
-using namespace std;
 
 template<class T>
 struct tree_node
