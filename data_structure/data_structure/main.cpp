@@ -6,13 +6,13 @@
 #include"hash_table.h"
 #include"binary_search_tree.h"
 #include"heap.h"
+#include"set.h"
 
 int main()
 {
-	Heap<int> h(1000);
-	int a[] = { 1,2,3,4,5 };
-	h.create(a, 5);
+	int a[] = { -1,0,0,-1,3 };
+	Set s(a, 5);
 
-	h.insert(8);
-	h.dele();
+	s.find(2);
+	s.union_set(2, 3);
 }
