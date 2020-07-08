@@ -5,21 +5,14 @@
 #include"circular_doubly_linked_list.h"
 #include"hash_table.h"
 #include"binary_search_tree.h"
-
+#include"heap.h"
 
 int main()
 {
-	BST<int> data;
+	Heap<int> h(1000);
+	int a[] = { 1,2,3,4,5 };
+	h.create(a, 5);
 
-	data.insert(9);
-	data.insert(3);
-	data.insert(20);
-	data.insert(15);
-	data.insert(25);
-
-	data.inorder2_print(data.get_root());
-	printf("\n");
-	data.preorder3_print(data.get_root());
-	printf("\n");
-	data.levelorder_print(data.get_root());
+	h.insert(8);
+	h.dele();
 }
