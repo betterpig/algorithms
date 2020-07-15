@@ -6,13 +6,14 @@
 #include"hash_table.h"
 #include"binary_search_tree.h"
 #include"heap.h"
-#include"set.h"
+#include"union_find.h"
 
 int main()
 {
-	int a[] = { -1,0,0,-1,3 };
-	Set s(a, 5);
+	string data="5,3,6,2,4,#,7 ";
+	tree_node<int>* root = deserialize(data);
 
-	s.find(2);
-	s.union_set(2, 3);
+	BST<int> bst(root);
+	
+	bst.dele(bst.get_root(),5);
 }

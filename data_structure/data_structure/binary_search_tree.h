@@ -1,7 +1,6 @@
 #pragma once
 #include"common.h"
 
-
 template<class T>
 struct tree_node
 {
@@ -16,7 +15,7 @@ template<class T>
 class BST
 {
 public:
-	BST() { root = nullptr; }
+	BST(tree_node<T>* root=nullptr):root(root) { }
 
 	int depth(tree_node<T>* p);
 
@@ -30,14 +29,13 @@ public:
 	void levelorder2_print(tree_node<T>* p);
 	void levelorder_print(tree_node<T>* p);
 
-	void delete_data(tree_node<T>* p);
 	tree_node<T>* search(T k);
 	tree_node<T>* min(tree_node<T>* p);
 	tree_node<T>* max(tree_node<T>* p);
 	tree_node<T>* successor(tree_node<T>* p);
 	tree_node<T>* predecessor(tree_node<T>* p);
 	void insert(T k);
-	void dele(T k);
+	tree_node<T>* dele(tree_node<T>* root, T key);
 	tree_node<T>* get_root() { return root; };
 
 private:
@@ -214,17 +212,6 @@ void levelorder(tree_node<T>* p, int n)
 }
 
 template<class T>
-void BST<T>::delete_data(tree_node<T>* p)
-{
-	if (p)
-	{
-		delete_data(p->left);
-		printf("%d  ", p->key);
-		delete_data(p->right);
-	}
-}
-
-template<class T>
 tree_node<T>* BST<T>::search(T k)
 {
 	tree_node<T>* p = root;
@@ -242,7 +229,7 @@ template<class T>
 tree_node<T>* BST<T>::min(tree_node<T>* p)
 {
 	tree_node<T>* temp = p;
-	while (p)
+	while (p->left)
 		p = p->left;
 	return p;
 }
@@ -251,7 +238,7 @@ template<class T>
 tree_node<T>* BST<T>::max(tree_node<T>* p)
 {
 	tree_node<T>* temp = p;
-	while (p)
+	while (p->right)
 		p = p->right;
 	return p;
 }
@@ -289,46 +276,100 @@ tree_node<T>* BST<T>::predecessor(tree_node<T>* p)
 template<class T>
 void BST<T>::insert(T k)
 {
-	tree_node<T>* y = nullptr;
-	tree_node<T>* x = root;
-	while (x)
+	tree_node<T>* p = root;
+	while (p)
 	{
-		y = x;
-		if (k < x->key)
-			x = x->left;
+		if (k < p->key)
+		{
+			if (!p->left)
+			{
+				p->left = new tree_node(k, nullptr, nullptr, p);
+				break;
+			}
+			p = p->left;
+		}
 		else
-			x = x->right;
+		{
+			if(!p->right)
+			{
+				p->right = new tree_node(k, nullptr, nullptr, p);
+				break;
+			}
+			p = p->right;
+		}
 	}
-	tree_node<T>* z = new tree_node<T>(k,nullptr,nullptr,y);
-	if (y == nullptr)
-		root = z;
-	else if (k < y->key)
-		y->left = z;
-	else
-		y->right = z;
-
 }
 
 template<class T>
-void BST<T>::dele(T k)
+tree_node<T>* BST<T>::dele( tree_node<T>* root, T key)
 {
-	tree_node<T>* p = search(k);
-	if (!p->left && !p->right)
-	{
-		delete p;
-		p = nullptr;
-	}
-	else if(p->left)
-	{
-		tree_node<T>* left_max = max(p->left);
-		p->key = left_max->key;
-		delete left_max;
-		left_max = nullptr;
-	}
+	if (root == nullptr)
+		return nullptr;
+	if (key < root->key)
+		root->left = dele(root->left, key);
+	else if (key > root->key)
+		root->right = dele(root->right, key);
 	else
 	{
-		p->parent->right = p->right;
-		delete p;
-		p = nullptr;
+		if (!root->left && !root->right)
+		{
+			delete root;
+			root = nullptr;
+		}
+		else if (root->left)
+		{
+			root->key = max(root->left)->key;
+			root->left=dele(root->left, root->key);
+		}
+		else
+		{
+			root->key = min(root->right)->key;
+			root->right=dele(root->right, root->key);
+		}
 	}
+	return root;
+}
+
+tree_node<int>* deserialize(string data) {
+	if (data.empty())
+		return nullptr;
+	queue<tree_node<int>*> q;
+	vector<string> d;
+	int begin_index = 0;
+	int end_index = 0;
+	while (begin_index < data.length())
+	{
+		while (end_index < data.length() && data[end_index] != ',')
+			end_index++;
+		string str = data.substr(begin_index, end_index - begin_index);
+		d.push_back(str);
+
+		end_index++;
+		begin_index = end_index;
+	}
+	tree_node<int>* root = new tree_node<int>(atoi(d[0].c_str()));
+	q.push(root);
+	int i = 1;
+	while (!q.empty() && i < d.size())
+	{
+		tree_node<int>* current = q.front();
+		q.pop();
+
+		if (d[i] != "#")
+		{
+			current->left = new tree_node<int>(atoi(d[i].c_str()));
+			q.push(current->left);
+		}
+		i++;
+		if (i > d.size() - 1)
+			break;
+		if (d[i] != "#")
+		{
+			current->right = new tree_node<int>(atoi(d[i].c_str()));
+			q.push(current->right);
+		}
+		i++;
+
+	}
+	return root;
 }
