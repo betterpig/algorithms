@@ -7,13 +7,13 @@
 #include"binary_search_tree.h"
 #include"heap.h"
 #include"union_find.h"
-
+#include "trie.h"
 int main()
 {
-	string data="5,3,6,2,4,#,7 ";
-	tree_node<int>* root = deserialize(data);
-
-	BST<int> bst(root);
-	
-	bst.dele(bst.get_root(),5);
+	vector<string> data = { "w","wo","wor","worl", "world" };
+	Trie t;
+	for (int i = 0; i < data.size(); i++)
+		t.insert(data[i]);
+	string result;
+	t.destruct(t.GetRoot());
 }

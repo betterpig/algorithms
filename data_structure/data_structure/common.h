@@ -2,6 +2,7 @@
 #include<iostream>
 #include<vector>
 #include<queue>
+#include<string>
 using namespace std;
 
 constexpr auto CAPACITY = 5;
