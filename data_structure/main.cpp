@@ -8,6 +8,7 @@
 #include"heap.h"
 #include"union_find.h"
 #include "trie.h"
+#include "segment_tree.h"
 int main()
 {
 	vector<string> data = { "w","wo","wor","worl", "world" };
