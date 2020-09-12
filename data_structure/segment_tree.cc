@@ -1,40 +1,6 @@
 #include <stdio.h>
 
-class SegmentTree
-{
-public:
-    void BuildTree(int a[],int node,int start,int end)
-    {
-        if(start==end)
-        {
-            tree[node]=a[start];
-            return;
-        }
-        int mid = (start + end) / 2;
-        int left_node  = node * 2 + 1;
-        int right_node = node * 2 + 2;
-
-        BuildTree(a,left_node,start,mid);
-        BuildTree(a,right_node,mid+1,end);
-    }
-
-    void update(int index,int val)
-    {
-        int mid = (start + end) / 2;
-    }
-
-    int query(int L,int R)
-    {
-
-    }
-private:
-    int tree[1000];
-    int start;
-    int end;
-
-};
-
-
+using namespace std;
 
 void BuildTree(int a[],int tree[],int node,int start,int end)
 {
